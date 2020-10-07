@@ -1,0 +1,19 @@
+#!/bin/bash 
+# This is a backup scrip.
+echo "This is UID: $UID"
+if [[ "$UID" -ne 0 ]]; then
+        echo 'LOGIN AS root.'
+else
+        echo 'Admin User'
+fi
+
+USER="charlene"
+INPUT="/home/$USER"
+OUTPUT="backup.bak_$(date +%F_%H%M%S).tar.gz"
+tar -cvzf $OUTPUT $INPUT 2> /dev/null
+echo "$INPUT has been successfully backed"
+
+if [[ "${?}" != 0 ]]; then
+        echo 'The command has failed.'
+        exit 1
+fi
